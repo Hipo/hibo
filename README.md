@@ -1,4 +1,11 @@
-hibo
-====
+HIBO
+####
 
-Dashboard app.
+Simple Dashboard app.
+
+### Usage
+
+    python -m hibo
+
+
+
