@@ -32,17 +32,7 @@ MAIN = {
 		
 	}
 
-	var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
-
-
-
-
-
-
-
-
-
-
+	// var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
 
 	}
 }

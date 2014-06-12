@@ -23,56 +23,20 @@
 </head>
 <body>
 
-	<div class="info-box big-box">
-		<h2 class="box-headline">Headline</h2>
-
-		<canvas id="canvas" width="400" height="400"></canvas>
-
-	</div>
-
-
-	<div class="info-box mid-box">
-		<h2 class="box-headline">Latest Announcements</h2>
-
-		<ul class="announcement-list">
-			<li><a href="#">Onu oyle yapmayalim</a></li>
-			<li><a href="#">Sunu soyle yapalim</a></li>
-			<li><a href="#">Bu boyle olsun</a></li>
-		</ul>
-
-	</div>
-
-
-	<div class="info-box sm-box">
-		<h2 class="box-headline">News</h2>
-
-		<ul class="news-list">
-			<li><a href="#">Bayaa iyi olay</a></li>
-			<li><a href="#">Bayaa iyi olay</a></li>
-			<li><a href="#">Bayaa iyi olay</a></li>
-			<li><a href="#">Bayaa iyi olay</a></li>
-			<li><a href="#">Bayaa iyi olay</a></li>
-		</ul>
-
-	</div>
-
-
-	<div class="info-box xs-box">
-		<h2 class="box-headline">Ayın Elemanı</h2>
-
-		<img class="highlighted-worker" src="/static/images/erdem.jpg">
-
-	</div>
-
-	<div class="info-box bar-box">
-		<h2 class="box-headline">Headline</h2>
-	</div>
-
-	<div class="info-box twin-box">
-		<h2 class="box-headline">Baska Foto</h2>
-
-		<img src="/static/images/manzara.jpg" class="image-cornered">
-	</div>
+	{% for box in boxes %}
+        <div class="info-box" style="
+            width: {{ box.sizes.width }}%;
+            height: {{ box.sizes.height }}%;
+            left: {{ box.sizes.x }}%;
+            top: {{ box.sizes.y }}%;
+            background-color: {{ box.color }};
+            ">
+            {% if box.title %}
+            <h2 class="box-headline">{{ box.title }}</h2>
+            {% endif %}
+            <ul data-widget="{{ box.widget }}" data-url="{{ box.parameters.url }}"></ul>
+        </div>
+    {% endfor %}
 
 
 	<!-- Scripts -->
@@ -80,9 +44,22 @@
 	<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 	<script>
-
-		
-	
+        $(function () {
+            $("[data-widget='rss']").each(function () {
+                var widget = $(this),
+                    rssUrl = widget.data("url");
+                $.getJSON("fetch_rss", {url: rssUrl}, function (response) {
+                    widget.empty();
+                    response.entries.forEach(function (entry) {
+                        $("<li>").append(
+                            $("<a>")
+                                .attr("href", entry.url)
+                                .html(entry.title)
+                        ).appendTo(widget);
+                    });
+                });
+            });
+        });
 	</script>
 </body>
 </html>

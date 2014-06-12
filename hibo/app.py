@@ -1,7 +1,9 @@
+import feedparser
 import os
 import sys
+import urllib2
 
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, request
 
 
 class DashboardApp(object):
@@ -19,11 +21,20 @@ class DashboardApp(object):
 
     def route_methods(self):
         self.app.route('/')(self.index)
+        self.app.route('/fetch_rss')(self.fetch_rss)
 
     def index(self):
         return render_template("index.html",
                                config=self.config,
                                boxes=self.boxes)
+
+    def fetch_rss(self):
+        rss_url = request.args.get("url")
+        parsed = feedparser.parse(rss_url)
+        entries = [{"title": entry.title,
+                    "url": entry.link
+                   } for entry in parsed.entries]
+        return jsonify({"entries": entries})
 
     def get_template_dir(self):
         return os.path.join(os.path.dirname(__file__), "templates")
@@ -33,22 +44,22 @@ class DashboardApp(object):
 
 
 class Box(object):
-
     def __init__(self, title, sizes, color, widget, parameters):
         self.title = title
-        self.sizes = sizes
+        self.sizes = self.parse_sizes(sizes)
         self.color = color
         self.widget = widget
         self.parameters = parameters
 
 
-    def parse_sizes(self):
-        x1, y1, x2, y2 = map(str.strip, self.sizes.split(","))
+    def parse_sizes(self, sizes):
+        x, y, width, height = [int(size.strip())
+                               for size in sizes.split(",")]
         return {
-            "x1": x1,
-            "y1": y1,
-            "x2": x2,
-            "y2": y2
+            "x": x,
+            "y": y,
+            "width": width,
+            "height": height
         }
 
 
@@ -57,7 +68,6 @@ class ConfigParseError(Exception):
 
 
 class ConfigReader(object):
-
     modules = {
         "json": "json",
         "yaml": "yaml"
