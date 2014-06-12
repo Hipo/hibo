@@ -1,3 +1,4 @@
-from app import app
+from app import main
 
-app.run()
+
+main()
