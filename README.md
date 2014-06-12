@@ -1,5 +1,4 @@
-HIBO
-####
+### HIBO
 
 Simple Dashboard app.
 
