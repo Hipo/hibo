@@ -1,11 +1,88 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js">
 <head>
-    <title>selam</title>
+
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width">
+
+	<!-- Title -->
+	<title>{{ config.title }}</title>
+
+	<!-- Link -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<script src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300'
+          rel='stylesheet' type='text/css'>
+
 </head>
 <body>
-{{ config.title }}
 
-{{ boxes }}
+	<div class="info-box big-box">
+		<h2 class="box-headline">Headline</h2>
+
+		<canvas id="canvas" width="400" height="400"></canvas>
+
+	</div>
+
+
+	<div class="info-box mid-box">
+		<h2 class="box-headline">Latest Announcements</h2>
+
+		<ul class="announcement-list">
+			<li><a href="#">Onu oyle yapmayalim</a></li>
+			<li><a href="#">Sunu soyle yapalim</a></li>
+			<li><a href="#">Bu boyle olsun</a></li>
+		</ul>
+
+	</div>
+
+
+	<div class="info-box sm-box">
+		<h2 class="box-headline">News</h2>
+
+		<ul class="news-list">
+			<li><a href="#">Bayaa iyi olay</a></li>
+			<li><a href="#">Bayaa iyi olay</a></li>
+			<li><a href="#">Bayaa iyi olay</a></li>
+			<li><a href="#">Bayaa iyi olay</a></li>
+			<li><a href="#">Bayaa iyi olay</a></li>
+		</ul>
+
+	</div>
+
+
+	<div class="info-box xs-box">
+		<h2 class="box-headline">Ayın Elemanı</h2>
+
+		<img class="highlighted-worker" src="/static/images/erdem.jpg">
+
+	</div>
+
+	<div class="info-box bar-box">
+		<h2 class="box-headline">Headline</h2>
+	</div>
+
+	<div class="info-box twin-box">
+		<h2 class="box-headline">Baska Foto</h2>
+
+		<img src="/static/images/manzara.jpg" class="image-cornered">
+	</div>
+
+
+	<!-- Scripts -->
+	<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+	<script>
+
+		
+	
+	</script>
 </body>
 </html>

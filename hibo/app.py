@@ -8,7 +8,8 @@ class DashboardApp(object):
     def __init__(self, config_path):
         self.app = Flask(
             import_name="hibo",
-            template_folder=self.get_template_dir())
+            template_folder=self.get_template_dir(),
+            static_folder=self.get_static_dir())
 
         self.route_methods()
 
@@ -26,6 +27,9 @@ class DashboardApp(object):
 
     def get_template_dir(self):
         return os.path.join(os.path.dirname(__file__), "templates")
+
+    def get_static_dir(self):
+        return os.path.join(os.path.dirname(__file__), "static")
 
 
 class Box(object):
@@ -108,6 +112,6 @@ def main():
     try:
         dashboard = DashboardApp(config_path=config_path)
     except ConfigParseError as e:
-        sys.stdout.write(e)
+        sys.stdout.write(e.message)
     else:
         dashboard.app.run(host=host, port=port, debug=True)
