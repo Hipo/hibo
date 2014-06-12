@@ -34,7 +34,10 @@
             {% if box.title %}
             <h2 class="box-headline">{{ box.title }}</h2>
             {% endif %}
-            <ul class="news-list" data-widget="{{ box.widget }}" data-url="{{ box.parameters.url }}"></ul>
+            <ul class="news-list"
+                data-interval="{{ box.parameters.refresh }}"
+                data-widget="{{ box.widget }}"
+                data-url="{{ box.parameters.url }}"></ul>
         </div>
     {% endfor %}
 
@@ -47,17 +50,22 @@
         $(function () {
             $("[data-widget='rss']").each(function () {
                 var widget = $(this),
-                    rssUrl = widget.data("url");
-                $.getJSON("fetch_rss", {url: rssUrl}, function (response) {
-                    widget.empty();
-                    response.entries.forEach(function (entry) {
-                        $("<li>").append(
-                            $("<a>")
-                                .attr("href", entry.url)
-                                .html(entry.title)
-                        ).appendTo(widget);
+                    rssUrl = widget.data("url"),
+                    interval = widget.data("interval");
+                var fetchRss = function () {
+                    $.getJSON("fetch_rss", {url: rssUrl}, function (response) {
+                        widget.empty();
+                        response.entries.forEach(function (entry) {
+                            $("<li>").append(
+                                $("<a>")
+                                    .attr("href", entry.url)
+                                    .html(entry.title)
+                            ).appendTo(widget);
+                        });
+                        setTimeout(fetchRss, parseInt(interval));
                     });
-                });
+                };
+                fetchRss();
             });
         });
 	</script>

@@ -4,11 +4,11 @@
     -
       title: "Latest commits"
       sizes: "0, 0, 50, 100"
-      color: "#dedede"
+      color: "#2C2C2C"
       widget: "rss"
       parameters:
-          url: "https://news.ycombinator.com/rss"
-          refresh: 5
+          url: "http://codebase.hipo.biz/rss/PwImvTidzGCuDXZtkKS4/global_feed.rss"
+          refresh: 5000
     -
       title: "System Uptime"
       sizes: "50, 0, 50, 25"
