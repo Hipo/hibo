@@ -1,0 +1,19 @@
+---
+  title: "Hipo Dashboard"
+  boxes:
+    -
+      title: "Latest commits"
+      sizes: "0, 0, 50, 100"
+      color: "red"
+      widget: "rss"
+      parameters:
+        -
+          url: "https://news.ycombinator.com/rss"
+          refresh: 5
+    -
+      title: "System Uptime"
+      sizes: "50, 0, 50, 25"
+      color: "blue"
+      widget: "image"
+      parameters:
+        - url: "http://youramazingsystemmanagementtool.com/uptime.jpg"
