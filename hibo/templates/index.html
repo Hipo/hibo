@@ -79,6 +79,24 @@
                 }
             });
 
+            $("[data-widget='twitter']").each(function () {
+                var widget = $(this),
+                    boxId = widget.data("box-id"),
+                    keywords = widget.data("keywords"),
+                    interval = widget.data("interval") || 60000;
+                var fetchTweets = function () {
+                    $.getJSON("fetch_tweet", {
+                        keywords: keywords,
+                        box_id: boxId
+                    }, function (response) {
+                        widget.empty();
+                        widget.html(response.text).append(response.username);
+                        setTimeout(fetchRss, parseInt(interval));
+                    });
+                };
+                fetchTweets();
+            });
+
         });
 	</script>
 </body>

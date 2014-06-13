@@ -1,7 +1,10 @@
 import os
 import sys
 
+from uuid import uuid4
+
 import feedparser
+from TwitterAPI import TwitterAPI
 
 from flask import Flask, render_template, jsonify, request
 
@@ -26,6 +29,7 @@ class DashboardApp(object):
     def route_methods(self):
         self.app.route('/')(self.index)
         self.app.route('/fetch_rss')(self.fetch_rss)
+        self.app.route('/fetch_tweet')(self.fetch_tweet)
 
     def index(self):
         return render_template("index.html", config=self.config,
@@ -39,6 +43,33 @@ class DashboardApp(object):
                    } for entry in parsed.entries]
         return jsonify({"entries": entries})
 
+    def fetch_tweet(self):
+        keywords = request.args.get("keywords")
+        box_id = request.args.get("box_id")
+
+        box = self.get_box_by_id(box_id)
+
+        twitter = TwitterAPI(
+            box.parameters.get('api_key'),
+            box.parameters.get('api_secret'),
+            box.parameters.get('access_token'),
+            box.parameters.get('access_token_secret')
+        )
+
+        tweets = twitter.request('search/tweets', {'q': keywords})
+
+        try:
+            last_tweet = next(iter(tweets))
+        except StopIteration:
+            last_tweet = {}
+
+        return jsonify(last_tweet)
+
+    def get_box_by_id(self, box_id):
+        for box in self.boxes:
+            if box.id == int(box_id):
+                return box
+
     def get_template_dir(self):
         return os.path.join(os.path.dirname(__file__), "templates")
 
@@ -47,7 +78,9 @@ class DashboardApp(object):
 
 
 class Box(object):
-    def __init__(self, title, sizes, color, widget, parameters):
+    def __init__(self, title, sizes, color, widget, parameters,
+                 box_id=None):
+        self.id = box_id or uuid4().hex
         self.title = title
         self.sizes = self.parse_sizes(sizes)
         self.color = color
@@ -105,7 +138,9 @@ class ConfigReader(object):
         return parsed
 
     def get_boxes(self):
-        return map(lambda data: Box(**data), self.parsed['boxes'])
+        return [Box(box_id=index, **data)
+                for index, data in
+                enumerate(self.parsed['boxes'])]
 
 
 def main():
