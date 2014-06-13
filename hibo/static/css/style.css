@@ -32,8 +32,8 @@ body {min-height: 100%;height: auto !important;font-size: 100%;}
 .info-box.bar-box{width: 20%;background-color: #C44D58;left: 30%;height: 20%;top: 80%;}
 .info-box.twin-box{width: 30%;background-color: #9DE0AD;left: 0;height: 30%;top: 70%;}
 
-.news-list{list-style:none;margin: 0 auto;text-align: left;padding-left: 20%;padding: 5% 0 40px 10%;font-size: 1.5vw;line-height: 1.6em;text-shadow: 0px 0px 20px rgba(0,0,0,.3);}
-.news-list li{width: 93%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color: #fff;height: 40px;}
+.news-list{list-style:none;margin: 0 auto;text-align: left;padding-left: 20%;padding: 5% 0 40px 10%;font-size: 1.8vw;line-height: 1.9em;text-shadow: 0px 0px 20px rgba(0,0,0,.3);}
+.news-list li{width: 93%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color: #fff;}
 .news-list li a{color:#fff;font-family: 'Open Sans', Helvetica, sans-serif;font-weight:300;letter-spacing:1px;}
 .news-list li a:hover{text-decoration:none; color:#fff;}
 
