@@ -1,9 +1,13 @@
-import feedparser
 import os
 import sys
-import urllib2
+
+import feedparser
 
 from flask import Flask, render_template, jsonify, request
+
+
+class ConfigParseError(Exception):
+    pass
 
 
 class DashboardApp(object):
@@ -24,8 +28,7 @@ class DashboardApp(object):
         self.app.route('/fetch_rss')(self.fetch_rss)
 
     def index(self):
-        return render_template("index.html",
-                               config=self.config,
+        return render_template("index.html", config=self.config,
                                boxes=self.boxes)
 
     def fetch_rss(self):
@@ -53,8 +56,14 @@ class Box(object):
 
 
     def parse_sizes(self, sizes):
-        x, y, width, height = [int(size.strip())
-                               for size in sizes.split(",")]
+        try:
+            x, y, width, height = [int(size.strip())
+                                   for size in sizes.split(",")]
+        except (TypeError, ValueError):
+            raise ConfigParseError(
+                'Wrong size format (%s). You should pass '
+                'comma-separated 4 integer value"' % self.sizes)
+
         return {
             "x": x,
             "y": y,
@@ -64,10 +73,6 @@ class Box(object):
 
     def get_widget_template(self):
         return "widgets/%s.html" % self.widget
-
-
-class ConfigParseError(Exception):
-    pass
 
 
 class ConfigReader(object):
