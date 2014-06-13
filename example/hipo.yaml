@@ -2,7 +2,7 @@
   title: "Hipo Dashboard"
   boxes:
     -
-      title: "Latest commits"
+      title: "Codebase Activity Feed"
       sizes: "0, 0, 50, 100"
       color: "#2C2C2C"
       widget: "rss"
@@ -11,15 +11,16 @@
           refresh: 5000
     -
       title: "System Uptime"
-      sizes: "50, 0, 50, 25"
-      color: "lightgreen"
+      sizes: "50, 0, 50, 50"
+      color: "#8A008A"
       widget: "image"
       parameters:
         url: "http://youramazingsystemmanagementtool.com/uptime.jpg"
+        refresh: 5000
 
     -
       title: "Latest Orders"
-      sizes: "50, 25, 50, 75"
+      sizes: "50, 50, 50, 50"
       color: "orange"
       widget: "image"
       parameters:
