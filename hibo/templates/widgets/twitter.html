@@ -1,3 +1,7 @@
+{% if box.title %}
+<h2 class="box-headline">{{ box.title }}</h2>
+{% endif %}
+
 <div data-widget="twitter"
      data-keywords="{{ box.parameters.keywords }}"
      data-box-id="{{ box.id }}">

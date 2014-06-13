@@ -90,8 +90,9 @@
                         box_id: boxId
                     }, function (response) {
                         widget.empty();
-                        widget.html(response.text).append(response.username);
-                        setTimeout(fetchRss, parseInt(interval));
+                        $("<p>").html(response.text).appendTo(widget);
+                        $("<span>").html(response.user.name).appendTo(widget);
+                        setTimeout(fetchTweets, parseInt(interval));
                     });
                 };
                 fetchTweets();
