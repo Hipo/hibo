@@ -22,7 +22,7 @@
 html{height: 100%;}
 body {min-height: 100%;height: auto !important;font-size: 100%;}
 
-.info-box{position: absolute;}
+.info-box{position: absolute;overflow: hidden;}
 .info-box .box-headline{text-align: center;color: #fff;font-family: 'Open Sans', Helvetica, sans-serif;font-weight:600;text-shadow: 0px 0px 45px rgba(0,0,0,.3);font-size: 2.3vw;}
 
 .info-box.big-box{width:50%;height:100%;background-color:#45ADA8;right: 0;}
