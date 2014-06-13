@@ -1,0 +1,7 @@
+{% if box.title %}
+<h2 class="box-headline">{{ box.title }}</h2>
+{% endif %}
+
+<div class="image-container">
+    <img data-widget="image" data-interval="{{ box.parameters.refresh }}" src="{{ box.parameters.url }}" alt=""/>
+</div>

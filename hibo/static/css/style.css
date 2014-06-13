@@ -45,3 +45,17 @@ body {min-height: 100%;height: auto !important;font-size: 100%;}
 .highlighted-worker{width: 166px;border: 6px solid #fff; border-radius: 50%;display:block;margin: 15px auto 0 auto;}
 
 .image-cornered{width: 200px;border: 6px solid #fff;display:block;margin: 12px auto 0 auto;}
+
+.cover {
+    width:100%;
+    height:100%;
+    background: fixed center center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.image-container {
+    text-align: center;
+}

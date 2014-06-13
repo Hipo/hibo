@@ -31,13 +31,7 @@
             top: {{ box.sizes.y }}%;
             background-color: {{ box.color }};
             ">
-            {% if box.title %}
-            <h2 class="box-headline">{{ box.title }}</h2>
-            {% endif %}
-            <ul class="news-list"
-                data-interval="{{ box.parameters.refresh }}"
-                data-widget="{{ box.widget }}"
-                data-url="{{ box.parameters.url }}"></ul>
+            {% include box.get_widget_template() with context %}
         </div>
     {% endfor %}
 
@@ -67,6 +61,24 @@
                 };
                 fetchRss();
             });
+
+            $("[data-widget='image']").each(function () {
+                var widget = $(this),
+                    interval = widget.data("interval"),
+                    originalUrl = widget.attr("src");
+                if (interval) {
+                    setInterval(function () {
+                        var url, suffix=Math.random();
+                        if (originalUrl.indexOf("?") > -1) {
+                            url = originalUrl + "&" + suffix;
+                        } else {
+                            url = originalUrl + "?" + suffix;
+                        }
+                        widget.attr("src", url);
+                    }, parseInt(interval));
+                }
+            });
+
         });
 	</script>
 </body>

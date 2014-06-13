@@ -1,0 +1,8 @@
+{% if box.title %}
+<h2 class="box-headline">{{ box.title }}</h2>
+{% endif %}
+
+<ul class="news-list"
+    data-interval="{{ box.parameters.refresh }}"
+    data-widget="{{ box.widget }}"
+    data-url="{{ box.parameters.url }}"></ul>

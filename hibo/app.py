@@ -62,6 +62,9 @@ class Box(object):
             "height": height
         }
 
+    def get_widget_template(self):
+        return "widgets/%s.html" % self.widget
+
 
 class ConfigParseError(Exception):
     pass
